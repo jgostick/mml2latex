@@ -14,7 +14,6 @@
   </head>
   <body class="bg-blue-50 h-screen flex flex-col items-center justify-center">
     <h1 class="text-2xl font-bold mb-4">MathML to LaTeX Converter</h1>
-    This page offers a tool to convert between equations written in Math Markup Language (MML) to Latex-style syntax. MML is the language used by Microsoft Word (since 2007), and Latex syntax is used by numerous "literate programming" tools like Jupyter Notebooks, Quarto, even Github flavored Markdown. The advantage of writing equations in Word is that you can see the rendered version in real time, but the downside is that these rendered equations cannot be 'cut-and-pasted' into a document that requires Latex syntax. However, there is a very handy work around: Word has a setting that enables equations to be copied as MML, rather than text. The tool on this page accepts the copied version of a Word equation and outputs the equivalent Latex syntax, which can then be pasted into any text documents that supports Latex equations.
     <div class="w-3/4 flex flex-row gap-6">
       <div class="flex flex-col w-1/2">
         <textarea id="mathmlInput" class="p-4 w-full h-64 border rounded shadow-md"></textarea>
@@ -42,6 +41,10 @@
         latexOutput.textContent = latex;
       });
     </script>
-    Notes: This tool is adapted from the code found on this repo: https://github.com/asnunes/mathml-to-latex, but was adapted to remove the extra text found in the Word output (i.e. &lt mml:mrow &gt was stripped just &lt/mrow&gt.
+      <p style="width: 500px;">
+        This page offers a tool to convert between equations written in Math Markup Language (MML) to Latex-style syntax. MML is the language used by Microsoft Word (since 2007), and Latex syntax is used by numerous "literate programming" tools like Jupyter Notebooks, Quarto, even Github flavored Markdown. The advantage of writing equations in Word is that you can see the rendered version in real time, but the downside is that these rendered equations cannot be 'cut-and-pasted' into a document that requires Latex syntax. However, there is a very handy work around: Word has a setting that enables equations to be copied as MML, rather than text. The tool on this page accepts the copied version of a Word equation and outputs the equivalent Latex syntax, which can then be pasted into any text documents that supports Latex equations.
+        <hr>
+          Notes: This tool is adapted from the code found on this repo: https://github.com/asnunes/mathml-to-latex, but was adapted to remove the extra text found in the Word output (i.e. &lt mml:mrow &gt was stripped just &lt/mrow&gt.
+      </p>
   </body>
 </html>
