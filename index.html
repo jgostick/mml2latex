@@ -11,24 +11,40 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet" />
     <!-- Including mathml-to-latex library -->
     <script src="https://cdn.jsdelivr.net/npm/mathml-to-latex@1.3.0/dist/bundle.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
   </head>
   <body class="bg-blue-50 h-screen flex flex-col items-center justify-center">
     <h1 class="text-2xl font-bold mb-4">MathML to LaTeX Converter</h1>
-    <div class="w-3/4 flex flex-row gap-6">
-      <div class="flex flex-col w-1/2">
-        <textarea id="mathmlInput" class="p-4 w-full h-64 border rounded shadow-md"></textarea>
+    <div class="w-3/4 grid grid-cols-3 grid-flow-row gap-4">
+    <!-- <div class="w-3/4 flex flex-row gap-6"> -->
+      <div class="flex flex-col bg-white p-4 border rounded shadow-md">
+        <h2 class="text-2xl font-bold mb-4">MathML Input</h2>
+        <textarea id="mathmlInput" class="p-4 w-full h-64 border border-gray-500 rounded shadow-md"></textarea>
         <button
           id="convertButton"
-          class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
-        >
+          class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">
           Convert to LaTeX
         </button>
       </div>
-      <div class="w-1/2 bg-white p-4 border rounded shadow-md">
+      <div class="bg-white p-4 border rounded shadow-md">
+        <h2 class="text-2xl font-bold mb-4">Latex Output</h2>
         <p id="latexOutput"></p>
       </div>
+      <div class="bg-white p-4 border rounded shadow-md">
+        <h2 class="text-2xl font-bold mb-4">Rendered Latex</h2>
+        <p id="latexRender"></p>
+      </div>
+      <div class="bg-white p-4 border rounded shadow-md col-span-3 p-8">
+        <h2 class="text-2xl font-bold mb-4">Notes</h2>
+        <p>
+          <li>This page offers a tool to convert between equations written in Math Markup Language (MML) to Latex-style syntax. MML is the language used by Microsoft Word (since 2007), and Latex syntax is used by numerous "literate programming" tools like Jupyter Notebooks and Quarto. The advantage of writing equations in Word is that you can see the rendered version in real time, but the downside is that these rendered equations cannot be 'cut-and-pasted' into a document that requires Latex syntax. However, there is a very handy work around: Word has a setting that enables equations to be "copied as MML", rather than text. The tool on this page accepts the copied version of a Word equation and outputs the equivalent Latex syntax, which can then be pasted into any text documents that supports Latex equations.</li>
+          <li>This tool is adapted from the code found on <a href="https://github.com/asnunes/mathml-to-latex">this repo</a>, but was adapted to remove the extra text found in the Word output (i.e. <mml:mrow> was stripped just </mrow>.</li>
+        </p>
+      </div>
     </div>
-
     <script>
       var mathmlInput = document.getElementById('mathmlInput');
       const latexOutput = document.getElementById('latexOutput');
@@ -39,11 +55,9 @@
       convertButton.addEventListener('click', function () {
         const latex = MathMLToLaTeX.MathMLToLaTeX.convert(mathmlInput.value.replace(/mml:/g, ''));
         latexOutput.textContent = latex;
+        latexRender.textContent = `$$` + latex + `$$`;
+        MathJax.typeset()
       });
     </script>
-        <hr>
-        <bold><p style="width: 500px;">Notes:</p></bold>
-        <li><p style="width: 500px;">This page offers a tool to convert between equations written in Math Markup Language (MML) to Latex-style syntax. MML is the language used by Microsoft Word (since 2007), and Latex syntax is used by numerous "literate programming" tools like Jupyter Notebooks and Quarto. The advantage of writing equations in Word is that you can see the rendered version in real time, but the downside is that these rendered equations cannot be 'cut-and-pasted' into a document that requires Latex syntax. However, there is a very handy work around: Word has a setting that enables equations to be "copied as MML", rather than text. The tool on this page accepts the copied version of a Word equation and outputs the equivalent Latex syntax, which can then be pasted into any text documents that supports Latex equations.</p></li>
-        <li><p style="width: 500px;">This tool is adapted from the code found on <a href="https://github.com/asnunes/mathml-to-latex">this repo</a>, but was adapted to remove the extra text found in the Word output (i.e. &ltmml:mrow&gt was stripped just &lt/mrow&gt.</p></li>
   </body>
 </html>
